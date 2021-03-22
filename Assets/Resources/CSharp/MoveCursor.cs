@@ -25,6 +25,8 @@ public class MoveCursor : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) isCorrectStart = CheckCorrectMoveStart();
         MoveStickAtMousePos();
         if (Input.GetMouseButtonUp(0)) isCorrectStart = false;
+
+        _keyMotions.animationId = isCorrectStart ? 0 : 1;
     }
 
     private void MoveStickAtMousePos()
@@ -39,9 +41,8 @@ public class MoveCursor : MonoBehaviour
             // radian angle
             float angle = Mathf.Atan(y / x);
             if (x < 0) angle += Mathf.PI;
-            Debug.Log(angle);
             _rectTransform.localPosition = new Vector2(MAX_OFFSET*Mathf.Cos(angle), MAX_OFFSET*Mathf.Sin(angle));
-            _keyMotions.KeyMoves(angle);
+            _keyMotions.StickMoves(angle);
         }
         else
         {
